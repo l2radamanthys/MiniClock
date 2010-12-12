@@ -1,0 +1,4 @@
+#!/bin/sh
+
+#lanzar el relojito
+python src/main.py

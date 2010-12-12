@@ -8,13 +8,12 @@
     <child>
       <widget class="GtkVBox" id="vbox1">
         <property name="visible">True</property>
-        <property name="orientation">vertical</property>
         <property name="spacing">10</property>
         <child>
           <widget class="GtkLabel" id="lbl_hora">
             <property name="visible">True</property>
             <property name="xalign">0.52999997138977051</property>
-            <property name="label" translatable="yes">&lt;span font_desc="Courier 44"&gt;00:00:00&lt;/span&gt;</property>
+            <property name="label" translatable="yes">&lt;span font_desc="Alien Encounters 44"&gt;00:00:00&lt;/span&gt;</property>
             <property name="use_markup">True</property>
           </widget>
           <packing>
@@ -36,12 +35,14 @@
               </packing>
             </child>
             <child>
-              <widget class="GtkSpinButton" id="spinbutton1">
-                <property name="width_request">10</property>
+              <widget class="GtkSpinButton" id="spin_btn_hh">
+                <property name="width_request">5</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="max_length">2</property>
                 <property name="invisible_char">&#x25CF;</property>
+                <property name="adjustment">0 0 23 1 10 10</property>
+                <property name="snap_to_ticks">True</property>
                 <property name="numeric">True</property>
                 <property name="wrap">True</property>
               </widget>
@@ -50,12 +51,13 @@
               </packing>
             </child>
             <child>
-              <widget class="GtkSpinButton" id="spinbutton2">
-                <property name="width_request">10</property>
+              <widget class="GtkSpinButton" id="spin_btn_mm">
+                <property name="width_request">5</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="max_length">2</property>
                 <property name="invisible_char">&#x25CF;</property>
+                <property name="adjustment">0 0 59 1 10 10</property>
                 <property name="numeric">True</property>
                 <property name="wrap">True</property>
               </widget>
@@ -64,12 +66,13 @@
               </packing>
             </child>
             <child>
-              <widget class="GtkSpinButton" id="spinbutton3">
-                <property name="width_request">10</property>
+              <widget class="GtkSpinButton" id="spin_btn_ss">
+                <property name="width_request">5</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="max_length">2</property>
                 <property name="invisible_char">&#x25CF;</property>
+                <property name="adjustment">0 0 59 1 10 10</property>
                 <property name="numeric">True</property>
                 <property name="wrap">True</property>
               </widget>
@@ -88,7 +91,7 @@
             <property name="visible">True</property>
             <property name="homogeneous">True</property>
             <child>
-              <widget class="GtkButton" id="button1">
+              <widget class="GtkButton" id="btn_conf">
                 <property name="label" translatable="yes">Confi</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
@@ -106,6 +109,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <signal name="toggled" handler="on_tbtn_alarma_toggled"/>
               </widget>
               <packing>
                 <property name="expand">False</property>
@@ -114,11 +118,12 @@
               </packing>
             </child>
             <child>
-              <widget class="GtkButton" id="button2">
+              <widget class="GtkButton" id="btn_salir">
                 <property name="label" translatable="yes">Salir</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <signal name="clicked" handler="on_btn_salir_clicked"/>
               </widget>
               <packing>
                 <property name="expand">False</property>
