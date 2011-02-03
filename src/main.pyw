@@ -1,6 +1,11 @@
 ﻿#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+# Plantilla creada por Ricardo D. Quiroga
+# licencia: GPL2
+# email: l2radamanthys@gmail.com, ricardoquiroga.dev@gmail.com
+# http://www.l2radamanthys.tk
+
 import pygtk
 pygtk.require('2.0')
 import gtk
@@ -11,7 +16,6 @@ from constantes import XMLF, XMLF_
 
 #importe aqui los Form que utilizara su App, por ejemplo:
 import frm_clock
-
 
 class MiApp:
     def __init__(self):

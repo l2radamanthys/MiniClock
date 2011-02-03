@@ -11,63 +11,13 @@ pygtk.require('2.0')
 import gtk
 import gobject #*
 from gtk import glade
-
-import time
 import datetime
 
-from pygame import mixer
+from extend import *
 
 
 def create(xml):
     return Form(xml)
-
-
-ATRIB = 'font_desc="Alien Encounters 44"'
-TAG_INI = "<span %s>" %ATRIB
-TAG_END = "</span>"
-
-
-#inicio el rep audio
-mixer.init()
-mixer.music.load('data/sounds/hello.wav')
-
-
-def run_clock(mi_form):
-    """
-        muestra la hora del reloj
-    """
-    #lbl_hora.set_text("<span font_desc=\"Courier 44\">" + time.strftime("%H:%M:%S") + "</span>")
-    #lbl_hora.set_markup('<span font_desc="Courier 44">hola</span>')
-    hora = time.strftime("%H:%M:%S")
-    mi_form.lbl_hora.set_markup(TAG_INI + hora + TAG_END)
-    return True
-
-
-def show_dialog():
-    """
-        Generarara un MensajeDialog que Dice Alarma
-    """
-    mi_dialog = gtk.MessageDialog(buttons=gtk.BUTTONS_OK)
-    mi_dialog.set_markup(TAG_INI + "Alarma" + TAG_END)
-    mi_dialog.run()
-    mi_dialog.hide()
-
-
-def ctlr_alarma(mi_form):
-    """
-        Lanza la alamarma si el boton esta activo
-    """
-    if mi_form.tbtn_alarma.get_active():
-        t = datetime.datetime.today()
-        #alarma
-        a_hh = mi_form.spin_btn_hh.get_value()
-        a_mm = mi_form.spin_btn_mm.get_value()
-        if (a_hh == t.hour) and (a_mm == t.minute):
-            mi_form.tbtn_alarma.set_active(False)
-            mixer.music.play(-1)
-            show_dialog()
-            mixer.music.stop()
-    return True
 
 
 class Form:
@@ -95,7 +45,7 @@ class Form:
         #que quiere conectar, por el momento esto se tiene que hacer a mano
         self.seniales = {
             'on_btn_salir_clicked': self.app_destroy,
-            #'on_tbtn_alarma_toggled': self.tbtn_alarma_toggled,
+            #'on_tbtn_alarma_toggled': self.tbtn_alarma_toggled, #esto ahora se hace aut
         }
 
         #conectamos automaticamente el listado de eventos
@@ -107,19 +57,15 @@ class Form:
 
         #self.alarma_activa = True
 
+        #saco la fecha y hora actual para def como valores inic de la app
         t = datetime.datetime.today()
         self.spin_btn_hh.set_value(t.hour)
         self.spin_btn_mm.set_value(t.minute)
         self.spin_btn_ss.set_value(t.second)
 
-
-        self.lbl_hora.value = time.strftime("%H:%M:%S")
-        self.timer = gobject.timeout_add(100, run_clock, self)
-        self.timer2 = gobject.timeout_add(100, ctlr_alarma, self)
-
-
-
-
+        #self.lbl_hora.value = time.strftime("%H:%M:%S")
+        gobject.timeout_add(500, run_clock, self)
+        gobject.timeout_add(200, ctlr_alarma, self)
 
 
     def show(self, opc=True):
@@ -151,19 +97,15 @@ class Form:
             Detiene la aplicacion por completo, y devuelve el mando
         """
         gtk.main_quit()
-
-    #----------------------------- Metodos ---------------------------------#
-
-
-
     #----------------------------- Eventos ---------------------------------#
     #agregue aqui sus eventos
-    def evt_mi_evento(self, widget, *args):
-        pass
+    #def evt_mi_evento(self, widget, *args):
+    #    pass
 
     #def tbtn_alarma_toggled(self, widget, *args):
     #    self.alarma_activa = not(self.alarma_activa)
 
+    #----------------------------- Metodos ---------------------------------#
 
 
 
